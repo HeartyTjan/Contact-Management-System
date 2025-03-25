@@ -1,9 +1,12 @@
 package org.example.service;
 
-import org.example.dto.CreateNewUser;
-import org.example.dto.CreateNewUserResponse;
+import org.example.dto.request.CreateNewUserRequest;
+import org.example.dto.request.UserLoginRequest;
+import org.example.dto.response.CreateNewUserResponse;
+import org.example.dto.response.UserLoginResponse;
 
 public interface UserService {
-    CreateNewUserResponse createUser(CreateNewUser newUser);
+    CreateNewUserResponse createUser(CreateNewUserRequest newUser);
+    UserLoginResponse login(UserLoginRequest loginRequest);
 
 }

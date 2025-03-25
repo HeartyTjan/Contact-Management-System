@@ -11,11 +11,11 @@ import java.util.List;
 @Document
 public class User {
 
-    private Long id;
+    private String id;
     private String firstName;
     private String lastName;
-    private String email;
     private String password;
-    private List<Contact> contacts = new ArrayList<>();
+    private Contact contact;
+
 }
 
