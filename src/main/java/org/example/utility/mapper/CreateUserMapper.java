@@ -3,7 +3,7 @@ import org.example.data.model.User;
 import org.example.dto.request.CreateNewUserRequest;
 import org.example.dto.response.CreateNewUserResponse;
 import org.example.dto.response.UserLoginResponse;
-import org.example.utility.SecurePassword;
+import org.example.utility.SecuredDetails;
 
 public class CreateUserMapper{
 
@@ -12,7 +12,7 @@ public class CreateUserMapper{
         newUser.setFirstName(createNewUserRequest.getFirstName());
         newUser.setLastName(createNewUserRequest.getLastName());
         newUser.setContact(createNewUserRequest.getContact());
-        String hashedPassword =  SecurePassword.hashPassword(createNewUserRequest.getPassword());
+        String hashedPassword =  SecuredDetails.hashPassword(createNewUserRequest.getPassword());
         newUser.setPassword(hashedPassword);
 
         return newUser;

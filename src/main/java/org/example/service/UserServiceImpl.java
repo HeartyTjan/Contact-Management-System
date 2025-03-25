@@ -5,7 +5,7 @@ import org.example.dto.request.CreateNewUserRequest;
 import org.example.dto.request.UserLoginRequest;
 import org.example.dto.response.CreateNewUserResponse;
 import org.example.dto.response.UserLoginResponse;
-import org.example.utility.SecurePassword;
+import org.example.utility.SecuredDetails;
 import org.example.utility.exception.ResourcesNotFoundException;
 import org.example.utility.exception.ResourcesAlreadyExistException;
 import org.example.utility.mapper.CreateUserMapper;
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         User foundUser = userRepository.findUserByContact_Email(loginRequest.getEmail())
                 .orElseThrow(()-> new ResourcesNotFoundException("Invalid Email or Password"));
 
-        boolean isLoginSuccessfully = SecurePassword.matchPassword(loginRequest.getPassword(),foundUser.getPassword());
+        boolean isLoginSuccessfully = SecuredDetails.matchPassword(loginRequest.getPassword(),foundUser.getPassword());
         if(isLoginSuccessfully){
 
             return CreateUserMapper.mapToLoginResponse("Login Successfully",true);
