@@ -49,14 +49,14 @@ class UserServiceImplTest {
     @Test
     public void userCanBeCreated_countIsOneTest() {
         CreateNewUserResponse response = userService.createUser(newUser);
-        assertEquals(response.getMessage(), "User created successfully");
+        assertEquals(response.getMessage(), "UserModel created successfully");
         assertEquals(1, userRepository.count());
     }
 
     @Test
     public void testThatUserCannotRegisterTwice_throwsException() {
         CreateNewUserResponse response = userService.createUser(newUser);
-        assertEquals(response.getMessage(), "User created successfully");
+        assertEquals(response.getMessage(), "UserModel created successfully");
         assertEquals(1, userRepository.count());
         assertThrows(ResourcesAlreadyExistException.class, ()-> userService.createUser(newUser));
     }
@@ -64,7 +64,7 @@ class UserServiceImplTest {
     @Test
     public void userCanLoginWithCorrectDetails_returnsTrue(){
         CreateNewUserResponse response = userService.createUser(newUser);
-        assertEquals(response.getMessage(), "User created successfully");
+        assertEquals(response.getMessage(), "UserModel created successfully");
         assertEquals(1, userRepository.count());
 
         UserLoginRequest loginRequest = new UserLoginRequest();

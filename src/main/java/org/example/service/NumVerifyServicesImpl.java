@@ -20,11 +20,10 @@ public class NumVerifyServicesImpl implements PhoneNumberValidationService {
     @Autowired
     private NumVerifyConfig config;
 
-v
 
     @Override
     public Mono<CallerInformation> validatePhoneNumber(String phoneNumber){
-//        String hashedPhoneNumber = SecuredDetails.hashPhoneNumber(phoneNumber);
+        String hashedPhoneNumber = SecuredDetails.hashPhoneNumber(phoneNumber);
 
         return webClientBuilder.baseUrl("http://apilayer.net/api")
                                     .build()
@@ -45,12 +44,13 @@ v
     private CallerInformation transformResponseToCallerInfo(Map<String, Object> response, String phoneNumber){
         boolean isValid = (Boolean) response.getOrDefault("valid",false);
         if(!isValid){
-            return new CallerInformation(phoneNumber, "Unknown","Unknown", "Invalid");
+            return new CallerInformation(false,phoneNumber, "Unknown","Unknown", "Invalid");
         }
+
         String country = (String) response.getOrDefault("country_name", "Unknown");
         String location = (String) response.getOrDefault("location","Unknown");
         String carrier = (String) response.getOrDefault("carrier", "Unknown");
-        return new CallerInformation(phoneNumber,country,location,carrier);
+        return new CallerInformation(true,phoneNumber,country,location,carrier);
     }
 
 

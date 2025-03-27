@@ -1,17 +1,14 @@
 package org.example.dto.request;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.util.List;
 @Data
 public class AddContactRequest {
 
-    @NotBlank(message = "At least one phone number is required")
-    @NotNull(message = "At least one phone number is required")
-    private List<String> phoneNumbers;
+    @Size(min = 1, message = "At least one phone number is required")
+    private List<@Pattern(regexp = "^(\\+234|0)(70|80|81|90|91)\\d{8}$", message = "Invalid phone number format") String> phoneNumbers;
 
     @NotBlank(message = "Name is required")
     @NotNull(message = "Name is required")

@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.data.model.User;
+import org.example.data.model.UserModel;
 import org.example.dto.request.CreateNewUserRequest;
 import org.example.dto.request.UserLoginRequest;
 import org.example.dto.response.CreateNewUserResponse;
@@ -30,27 +30,31 @@ public class UserServiceImpl implements UserService {
     public CreateNewUserResponse createUser(CreateNewUserRequest newUser) {
 
         if(userRepository.existsByContact_Email(newUser.getContact().getEmail())) {
-            logger.warn("User with email{} already exist",newUser.getContact().getEmail());
-            throw new ResourcesAlreadyExistException("User already exist");
+            logger.warn("UserModel with email{} already exist",newUser.getContact().getEmail());
+            throw new ResourcesAlreadyExistException("UserModel already exist");
         }
 
-        User user = CreateUserMapper.mapToUser(newUser);
+        UserModel userModel = CreateUserMapper.mapToUser(newUser);
 
-        User savedUser = userRepository.save(user);
+        UserModel savedUserModel = userRepository.save(userModel);
 
-        return CreateUserMapper.mapToResponse("User created successfully", true);
+        return CreateUserMapper.mapToResponse("UserModel created successfully", true);
     }
 
+    @Override
     public UserLoginResponse login(UserLoginRequest loginRequest){
-        User foundUser = userRepository.findUserByContact_Email(loginRequest.getEmail())
+        UserModel foundUserModel = userRepository.findUserByContact_Email(loginRequest.getEmail())
                 .orElseThrow(()-> new ResourcesNotFoundException("Invalid Email or Password"));
 
-        boolean isLoginSuccessfully = SecuredDetails.matchPassword(loginRequest.getPassword(),foundUser.getPassword());
+        boolean isLoginSuccessfully = SecuredDetails.matchPassword(loginRequest.getPassword(), foundUserModel.getPassword());
         if(isLoginSuccessfully){
 
             return CreateUserMapper.mapToLoginResponse("Login Successfully",true);
         }
         return CreateUserMapper.mapToLoginResponse("Login Failed",false);
     }
+
+
+
 
 }

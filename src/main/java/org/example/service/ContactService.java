@@ -14,8 +14,6 @@ public interface ContactService {
 
     GeneralResponse updateContact(UpdateContactRequest request);
 
-    List<Contact> findContactByName(String name);
-
     Contact findContactById(String contactId);
 
     GeneralResponse blockContact(String contactId);
@@ -23,5 +21,8 @@ public interface ContactService {
     GeneralResponse unBlockContact(String contactId);
 
     List<Contact> getAllBlockedContacts();
+
+    List<Contact> getAllContacts();
+
     GeneralResponse deleteAllContact();
 }

@@ -1,11 +1,12 @@
 package org.example.utility;
 
 
+import lombok.Getter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+@Getter
 public class SecuredDetails {
 
-    private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    public static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
     public static String hashPassword(String Password){

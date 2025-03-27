@@ -1,5 +1,5 @@
 package org.example.utility.mapper;
-import org.example.data.model.User;
+import org.example.data.model.UserModel;
 import org.example.dto.request.CreateNewUserRequest;
 import org.example.dto.response.CreateNewUserResponse;
 import org.example.dto.response.UserLoginResponse;
@@ -7,15 +7,16 @@ import org.example.utility.SecuredDetails;
 
 public class CreateUserMapper{
 
-    public static User mapToUser(CreateNewUserRequest createNewUserRequest) {
-        User newUser = new User();
-        newUser.setFirstName(createNewUserRequest.getFirstName());
-        newUser.setLastName(createNewUserRequest.getLastName());
-        newUser.setContact(createNewUserRequest.getContact());
+    public static UserModel mapToUser(CreateNewUserRequest createNewUserRequest) {
+        UserModel newUserModel = new UserModel();
+        newUserModel.setFirstName(createNewUserRequest.getFirstName());
+        newUserModel.setLastName(createNewUserRequest.getLastName());
+        newUserModel.setContact(createNewUserRequest.getContact());
         String hashedPassword =  SecuredDetails.hashPassword(createNewUserRequest.getPassword());
-        newUser.setPassword(hashedPassword);
+        newUserModel.setPassword(hashedPassword);
+        newUserModel.setRole(createNewUserRequest.getRole());
 
-        return newUser;
+        return newUserModel;
     }
 
     public static CreateNewUserResponse mapToResponse(String message, boolean success) {

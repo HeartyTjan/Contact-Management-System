@@ -21,12 +21,16 @@ public class CreateNewUserRequest {
     @NotBlank(message = "lastName Cannot be blank")
     private String lastName;
 
-    @NotBlank(message = "Contact cannot be blank")
     @NotNull(message = "Contact is required")
+    @Valid
     private Contact contact;
 
     @NotNull(message = "password is required")
     @NotBlank(message = "password Cannot be blank")
     @Size(min = 4, max = 15, message = "Password must not be below 5 and above 15")
     private String password;
+
+    @NotNull(message = "Role is required")
+    @NotBlank(message = "Role is required")
+    private String Role;
 }

@@ -54,11 +54,11 @@ public class ContactServiceImpl implements ContactService{
       else return ContactMapper.mapContactToResponse("Attempt to update Contact Failed", false);
     }
 
-    @Override
-    public List<Contact> findContactByName(String name) {
-       return contactRepository.findAllByName(name)
-               .orElseThrow(()-> new ResourcesNotFoundException(String.format("Contact with name %s does not exist", name)));
-    }
+//    @Override
+//    public List<Contact> findContactByName(String name) {
+//       return contactRepository.findAllByName(name)
+//               .orElseThrow(()-> new ResourcesNotFoundException(String.format("Contact with name %s does not exist", name)));
+//    }
 
     @Override
     public Contact findContactById(String contactId){
@@ -84,7 +84,7 @@ public class ContactServiceImpl implements ContactService{
         if(contactToBeUnBlocked.isBlocked()) {
             contactToBeUnBlocked.setBlocked(false);
             contactRepository.save(contactToBeUnBlocked);
-            return ContactMapper.mapContactToResponse("Contact blocked successfully", true);
+            return ContactMapper.mapContactToResponse("Contact unblocked successfully", true);
         }
         else throw new IllegalArgumentException ("Contact was never blocked");
     }
@@ -94,6 +94,12 @@ public class ContactServiceImpl implements ContactService{
         return contactRepository.findAllByBlockedTrue()
                 .orElseThrow(()-> new ResourcesNotFoundException("There is no blocked contact"));
     }
+
+    @Override
+    public List<Contact> getAllContacts() {
+        return contactRepository.findAll();
+    }
+
 
     @Override
     public GeneralResponse deleteAllContact() {

@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CallerInformation {
+    private boolean valid;
     private String phoneNumber;
     private String country;
     private String location;
