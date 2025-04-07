@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter
 public class CreateNewUserResponse {
     private String message;
+    private String token;
     private boolean status;
 }

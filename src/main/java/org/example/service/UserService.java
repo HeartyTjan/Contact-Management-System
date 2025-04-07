@@ -9,6 +9,7 @@ import org.example.dto.response.UserLoginResponse;
 
 public interface UserService {
     CreateNewUserResponse createUser(CreateNewUserRequest newUser);
-    UserLoginResponse login(UserLoginRequest loginRequest);
+//    UserLoginResponse loginUser(UserLoginRequest loginRequest);
 
+    UserLoginResponse login(UserLoginRequest loginRequest);
 }

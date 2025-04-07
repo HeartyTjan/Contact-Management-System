@@ -33,10 +33,7 @@ class ContactServiceImplTest {
         contactRepository.deleteAll();
 
         contactRequest.setName("Babatunde Fola");
-        List<String> phoneNumbers = new ArrayList<>();
-        phoneNumbers.add("09088389329");
-        phoneNumbers.add("07012838033");
-        contactRequest.setPhoneNumbers(phoneNumbers);
+        contactRequest.setPhoneNumber("09088389329");
         contactRequest.setEmail("babs@gmail.com");
 
     }
@@ -146,7 +143,7 @@ class ContactServiceImplTest {
         assertTrue(blockedContact.isBlocked());
 
         GeneralResponse unBlockedContactResponse = contactService.unBlockContact(blockedContact.getId());
-        assertFalse(unBlockedContactResponse.isSuccess());
+        assertTrue(unBlockedContactResponse.isSuccess());
         Contact unBlockedContact = contactService.findContactById(blockedContact.getId());
         assertFalse(unBlockedContact.isBlocked());
 

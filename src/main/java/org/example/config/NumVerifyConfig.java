@@ -1,15 +1,15 @@
 package org.example.config;
 
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @Getter
-@PropertySource("classpath:.env")
-public class NumVerifyConfig {
+@Setter
+@ConfigurationProperties(prefix = "spring.api")
 
-    @Value("${API_ACCESS_KEY}")
-    private String apiKey;
+public class NumVerifyConfig {
+    private String accessKey;
 }

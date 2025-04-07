@@ -1,5 +1,7 @@
 package org.example.service;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.data.model.Contact;
 import org.example.data.repository.ContactRepository;
 import org.example.dto.request.AddContactRequest;
@@ -9,21 +11,29 @@ import org.example.utility.exception.ResourcesAlreadyExistException;
 import org.example.utility.exception.ResourcesNotFoundException;
 import org.example.utility.mapper.ContactMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ContactServiceImpl implements ContactService{
 
-    @Autowired
-    private ContactRepository contactRepository;
+
+    private final ContactRepository contactRepository;
+
+//    @Autowired
+//    public ContactServiceImpl(ContactRepository contactRepository) {
+//        this.contactRepository = contactRepository;
+//    }
 
 
     @Override
     public GeneralResponse addContact(AddContactRequest contactRequest) {
-        if(contactRepository.existsByPhoneNumbersContains(contactRequest.getPhoneNumbers())){
+        if(contactRepository.existsByPhoneNumber(contactRequest.getPhoneNumber())){
             throw new ResourcesAlreadyExistException("Contact with this phone number already exists.");
         }
         Contact newContact = ContactMapper.mapRequestToContact(contactRequest);

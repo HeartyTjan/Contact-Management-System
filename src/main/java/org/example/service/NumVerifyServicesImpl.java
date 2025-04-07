@@ -23,21 +23,20 @@ public class NumVerifyServicesImpl implements PhoneNumberValidationService {
 
     @Override
     public Mono<CallerInformation> validatePhoneNumber(String phoneNumber){
-        String hashedPhoneNumber = SecuredDetails.hashPhoneNumber(phoneNumber);
+//        String hashedPhoneNumber = SecuredDetails.hashPhoneNumber(phoneNumber);
 
         return webClientBuilder.baseUrl("http://apilayer.net/api")
-                                    .build()
-                                    .get()
+                                .build()
+                                .get()
                                     .uri(uriBuilder -> uriBuilder
                                         .path("/validate")
-                                        .queryParam("access_key", config.getApiKey())
+                                        .queryParam("access_key", config.getAccessKey())
                                             .queryParam("number", phoneNumber)
                                             .build())
-                                    .retrieve()
-                                    .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
+                                .retrieve()
+                                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
                                             _ -> Mono.error(new RuntimeException("External API error")))
-                                    .bodyToMono(new ParameterizedTypeReference<Map<String,Object>>() {})
-                                    .doOnNext(response -> System.out.println("API Response: " + response))
+                                .bodyToMono(new ParameterizedTypeReference<Map<String,Object>>() {})
                                     .map(response -> transformResponseToCallerInfo(response,phoneNumber));
     }
 

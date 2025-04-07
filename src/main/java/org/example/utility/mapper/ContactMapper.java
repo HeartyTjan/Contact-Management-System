@@ -11,7 +11,7 @@ public class ContactMapper {
         contact.setName(addContactRequest.getName());
         contact.setEmail(addContactRequest.getEmail());
         contact.setAddress(addContactRequest.getAddress());
-        contact.setPhoneNumbers(addContactRequest.getPhoneNumbers());
+        contact.setPhoneNumber(addContactRequest.getPhoneNumber());
         return contact;
     }
 
@@ -24,10 +24,10 @@ public class ContactMapper {
 
     public static Contact mapUpdateContactRequestToContact(Contact contactToUpdated, UpdateContactRequest request){
 
-        contactToUpdated.setName(request.getName());
+       contactToUpdated.setName(request.getName());
         contactToUpdated.setEmail(request.getEmail());
         contactToUpdated.setAddress(request.getAddress());
-        contactToUpdated.setPhoneNumbers(request.getPhoneNumbers());
+        contactToUpdated.setPhoneNumber(request.getPhoneNumber());
         return contactToUpdated;
     }
 }

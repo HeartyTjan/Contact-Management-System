@@ -1,5 +1,6 @@
 package org.example.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.data.model.UserModel;
 import org.example.dto.request.CreateNewUserRequest;
 import org.example.dto.request.UserLoginRequest;
@@ -9,36 +10,33 @@ import org.example.utility.SecuredDetails;
 import org.example.utility.exception.ResourcesNotFoundException;
 import org.example.utility.exception.ResourcesAlreadyExistException;
 import org.example.utility.mapper.CreateUserMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.example.data.repository.UserRepository;
 
 
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+//    private final JwtService jwtService;
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
+//    @Autowired
+//    private UserInfoUserDetailsService userDetailsService;
 
 
     @Override
     public CreateNewUserResponse createUser(CreateNewUserRequest newUser) {
 
         if(userRepository.existsByContact_Email(newUser.getContact().getEmail())) {
-            logger.warn("UserModel with email{} already exist",newUser.getContact().getEmail());
-            throw new ResourcesAlreadyExistException("UserModel already exist");
+            throw new ResourcesAlreadyExistException("User already exist");
         }
-
         UserModel userModel = CreateUserMapper.mapToUser(newUser);
-
-        UserModel savedUserModel = userRepository.save(userModel);
-
-        return CreateUserMapper.mapToResponse("UserModel created successfully", true);
+         userRepository.save(userModel);
+        return CreateUserMapper.mapToResponse("User created successfully",true);
     }
 
     @Override
@@ -53,6 +51,14 @@ public class UserServiceImpl implements UserService {
         }
         return CreateUserMapper.mapToLoginResponse("Login Failed",false);
     }
+
+//    @Override
+//    public UserLoginResponse loginUser(UserLoginRequest loginRequest) {
+//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+//        var user = userDetailsService.loadUserByUsername(loginRequest.getEmail());
+//        String token = jwtService.generateToken(user);
+//        return CreateUserMapper.mapToLoginResponse("Login Successfully",token, true);
+//    }
 
 
 

@@ -4,6 +4,7 @@ import org.example.dto.request.CreateNewUserRequest;
 import org.example.dto.response.CreateNewUserResponse;
 import org.example.dto.response.UserLoginResponse;
 import org.example.utility.SecuredDetails;
+import org.springframework.beans.BeanUtils;
 
 public class CreateUserMapper{
 
@@ -25,10 +26,12 @@ public class CreateUserMapper{
         response.setStatus(success);
         return response;
     }
-    public static UserLoginResponse mapToLoginResponse(String message, boolean success){
+    public static UserLoginResponse mapToLoginResponse(String message,boolean success){
         UserLoginResponse loginResponse = new UserLoginResponse();
         loginResponse.setMessage(message);
+//        loginResponse.setToken(token);
         loginResponse.setSuccess(success);
         return loginResponse;
     }
+
 }
