@@ -14,6 +14,7 @@ target/
 ./src/main/resources/application.properties
 .env
 .env.*
+.application.properties
 
 ### Eclipse ###
 .apt_generated

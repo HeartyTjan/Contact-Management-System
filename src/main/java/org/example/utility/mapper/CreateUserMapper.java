@@ -20,16 +20,17 @@ public class CreateUserMapper{
         return newUserModel;
     }
 
-    public static CreateNewUserResponse mapToResponse(String message, boolean success) {
+    public static CreateNewUserResponse mapToResponse(String message, boolean success, String jwtToken) {
         CreateNewUserResponse response = new CreateNewUserResponse();
         response.setMessage(message);
         response.setStatus(success);
+        response.setToken(jwtToken);
         return response;
     }
-    public static UserLoginResponse mapToLoginResponse(String message,boolean success){
+    public static UserLoginResponse mapToLoginResponse(String message,boolean success, String token){
         UserLoginResponse loginResponse = new UserLoginResponse();
         loginResponse.setMessage(message);
-//        loginResponse.setToken(token);
+        loginResponse.setToken(token);
         loginResponse.setSuccess(success);
         return loginResponse;
     }
