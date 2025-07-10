@@ -9,8 +9,8 @@ on:
 jobs:
 
 
-  test:
-    name: Unit test
+  build:
+    name: Build without test
     runs-on: ubuntu-latest
 
     steps:
